@@ -3,14 +3,14 @@ import throttle from 'lodash.throttle';
 const localStorageKey = 'feedback-form-state';
 
 const form = document.querySelector('.feedback-form');
-const formData = {};
+const formData = JSON.parse(localStorage.getItem(localStorageKey)) || {};
 form.addEventListener('input', throttle(onFormData, 500));
 form.addEventListener('submit', onSubmitForm);
 
 const fillContactFormFields = () => {
   const userInfoFromLS = JSON.parse(localStorage.getItem(localStorageKey));
 
-  if (userInfoFromLS === undefined) {
+  if (!userInfoFromLS) {
     return;
   }
 
